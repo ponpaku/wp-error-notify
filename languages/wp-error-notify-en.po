@@ -1,0 +1,258 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Error Notify 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-16 16:00+0900\n"
+"PO-Revision-Date: 2025-05-17 23:28+0900\n"
+"Last-Translator: Your Name <your-email@example.com>\n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.6\n"
+
+#: wp-error-notify.php:6
+msgid "Notifies website errors via Discord or Slack."
+msgstr "Notifies website errors via Discord or Slack."
+
+#: includes/class-wp-error-notify-admin.php:35
+#: includes/class-wp-error-notify-admin.php:36
+msgid "Error Notify Settings"
+msgstr "Error Notify Settings"
+
+#: includes/class-wp-error-notify-admin.php:37
+msgid "Error Notify"
+msgstr "Error Notify"
+
+#: includes/class-wp-error-notify-admin.php:51
+msgid "General Settings"
+msgstr "General Settings"
+
+#: includes/class-wp-error-notify-admin.php:52
+msgid "Configure general settings for error notifications."
+msgstr "Configure general settings for error notifications."
+
+#: includes/class-wp-error-notify-admin.php:106
+msgid "The Webhook URLs and other settings below are saved in the database. Therefore, errors that occur when the database is unavailable (e.g., database connection errors) may not be notified using these settings."
+msgstr "The Webhook URLs and other settings below are saved in the database. Therefore, errors that occur when the database is unavailable (e.g., database connection errors) may not be notified using these settings."
+
+#: includes/class-wp-error-notify-admin.php:109
+msgid "If you want to send notifications even for database errors, please add the following constants to your <code>wp-config.php</code> file:"
+msgstr "If you want to send notifications even for database errors, please add the following constants to your <code>wp-config.php</code> file:"
+
+#: includes/class-wp-error-notify-admin.php:112
+msgid "For Discord:"
+msgstr "For Discord:"
+
+#: includes/class-wp-error-notify-admin.php:117
+msgid "For Slack:"
+msgstr "For Slack:"
+
+#: includes/class-wp-error-notify-admin.php:123
+msgid "If constants are defined in `wp-config.php`, they will be used as a fallback or override the settings below if the database is inaccessible or the DB field is empty."
+msgstr "If constants are defined in `wp-config.php`, they will be used as a fallback or override the settings below if the database is inaccessible or the DB field is empty."
+
+#: includes/class-wp-error-notify-admin.php:60
+msgid "Enable Notification Services"
+msgstr "Enable Notification Services"
+
+#: includes/class-wp-error-notify-admin.php:143
+msgid "Discord"
+msgstr "Discord"
+
+#: includes/class-wp-error-notify-admin.php:144
+msgid "Slack"
+msgstr "Slack"
+
+#: includes/class-wp-error-notify-admin.php:150
+msgid "Select the services you want to use for notifications."
+msgstr "Select the services you want to use for notifications."
+
+#: includes/class-wp-error-notify-admin.php:68
+msgid "Notify Error Levels"
+msgstr "Notify Error Levels"
+
+#: includes/class-wp-error-notify-admin.php:175
+msgid "Select the PHP error levels you want to be notified about. It is recommended to keep fatal errors selected."
+msgstr "Select the PHP error levels you want to be notified about. It is recommended to keep fatal errors selected."
+
+#: includes/class-wp-error-notify-admin.php:76
+msgid "Discord Settings"
+msgstr "Discord Settings"
+
+#: includes/class-wp-error-notify-admin.php:85
+msgid "Slack Settings"
+msgstr "Slack Settings"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:130
+msgid "Configure settings for %s notifications."
+msgstr "Configure settings for %s notifications."
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:95
+msgid "%s Webhook URL"
+msgstr "%s Webhook URL"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:101
+msgid "%s Username (Optional)"
+msgstr "%s Username (Optional)"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:107
+msgid "%s Avatar URL / Icon (Optional)"
+msgstr "%s Avatar URL / Icon (Optional)"
+
+#: includes/class-wp-error-notify-admin.php:201
+msgid "For Slack, you can also use an emoji like :robot_face:"
+msgstr "For Slack, you can also use an emoji like :robot_face:"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:188
+msgid "Currently using value from wp-config.php: %s"
+msgstr "Currently using value from wp-config.php: %s"
+
+#: includes/class-wp-error-notify-settings.php:87
+msgid "Fatal run-time errors. (E_ERROR)"
+msgstr "Fatal run-time errors. (E_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:88
+msgid "Run-time warnings (non-fatal errors). (E_WARNING)"
+msgstr "Run-time warnings (non-fatal errors). (E_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:89
+msgid "Compile-time parse errors. (E_PARSE)"
+msgstr "Compile-time parse errors. (E_PARSE)"
+
+#: includes/class-wp-error-notify-settings.php:90
+msgid "Run-time notices. (E_NOTICE)"
+msgstr "Run-time notices. (E_NOTICE)"
+
+#: includes/class-wp-error-notify-settings.php:91
+msgid "Fatal errors that occur during PHP's initial startup. (E_CORE_ERROR)"
+msgstr "Fatal errors that occur during PHP's initial startup. (E_CORE_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:92
+msgid "Warnings (non-fatal errors) that occur during PHP's initial startup. (E_CORE_WARNING)"
+msgstr "Warnings (non-fatal errors) that occur during PHP's initial startup. (E_CORE_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:93
+msgid "Fatal compile-time errors. (E_COMPILE_ERROR)"
+msgstr "Fatal compile-time errors. (E_COMPILE_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:94
+msgid "Compile-time warnings (non-fatal errors). (E_COMPILE_WARNING)"
+msgstr "Compile-time warnings (non-fatal errors). (E_COMPILE_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:95
+msgid "User-generated error message. (E_USER_ERROR)"
+msgstr "User-generated error message. (E_USER_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:96
+msgid "User-generated warning message. (E_USER_WARNING)"
+msgstr "User-generated warning message. (E_USER_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:97
+msgid "User-generated notice message. (E_USER_NOTICE)"
+msgstr "User-generated notice message. (E_USER_NOTICE)"
+
+#: includes/class-wp-error-notify-settings.php:98
+msgid "Enable to have PHP suggest changes to your code which will ensure the best interoperability and forward compatibility of your code. (E_STRICT)"
+msgstr "Enable to have PHP suggest changes to your code which will ensure the best interoperability and forward compatibility of your code. (E_STRICT)"
+
+#: includes/class-wp-error-notify-settings.php:99
+msgid "Catchable fatal error. (E_RECOVERABLE_ERROR)"
+msgstr "Catchable fatal error. (E_RECOVERABLE_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:100
+msgid "Run-time notices. Enable to receive warnings about code that will not work in future versions. (E_DEPRECATED)"
+msgstr "Run-time notices. Enable to receive warnings about code that will not work in future versions. (E_DEPRECATED)"
+
+#: includes/class-wp-error-notify-settings.php:101
+msgid "User-generated warning message. (E_USER_DEPRECATED)"
+msgstr "User-generated warning message. (E_USER_DEPRECATED)"
+
+# @ php-format
+#: includes/class-wp-error-notify-settings.php:111
+msgid "Unknown error type (%d)"
+msgstr "Unknown error type (%d)"
+
+#: includes/class-wp-error-notify-handler.php:85
+#: includes/class-wp-error-notify-handler.php:95
+#: includes/class-wp-error-notify-handler.php:172
+msgid "Error Content"
+msgstr "Error Content"
+
+#: includes/class-wp-error-notify-handler.php:88
+#: includes/class-wp-error-notify-handler.php:175
+msgid "Error Location"
+msgstr "Error Location"
+
+#: includes/class-wp-error-notify-handler.php:96
+msgid "A critical error occurred. Details from wp_die:"
+msgstr "A critical error occurred. Details from wp_die:"
+
+#: includes/class-wp-error-notify-handler.php:98
+msgid "Message"
+msgstr "Message"
+
+#: includes/class-wp-error-notify-handler.php:100
+msgid "An unknown error occurred."
+msgstr "An unknown error occurred."
+
+#: includes/class-wp-error-notify-handler.php:120
+msgid "A critical error has occurred on your site."
+msgstr "A critical error has occurred on your site."
+
+#: includes/class-wp-error-notify-handler.php:178
+#: includes/class-wp-error-notify-handler.php:185
+msgid "Site URL"
+msgstr "Site URL"
+
+#: includes/class-wp-error-notify-handler.php:193
+msgid "An error has occurred on your site."
+msgstr "An error has occurred on your site."
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown,
+#: process_error)
+msgid "Request Information"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "N/A (CLI Request or System Process)"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "URL"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "Request URI"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "Method"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "Referer"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "User Agent"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "IP Address"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (get_request_details_markdown)
+msgid "N/A"
+msgstr ""
+
+#: includes/class-wp-error-notify-handler.php:XX (custom_wp_die_function)
+msgid "An unknown error occurred via wp_die."
+msgstr ""

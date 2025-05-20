@@ -1,0 +1,247 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Error Notify 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-16 16:00+0900\n"
+"PO-Revision-Date: 2025-05-17 23:28+0900\n"
+"Last-Translator: Your Name <your-email@example.com>\n"
+"Language-Team: Japanese\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.6\n"
+
+#: wp-error-notify.php:6
+msgid "Notifies website errors via Discord or Slack."
+msgstr "WordPressのエラーをDiscordやSlackで通知します。"
+
+#: includes/class-wp-error-notify-admin.php:35
+#: includes/class-wp-error-notify-admin.php:36
+msgid "Error Notify Settings"
+msgstr "エラー通知設定"
+
+#: includes/class-wp-error-notify-admin.php:37
+msgid "Error Notify"
+msgstr "エラー通知"
+
+#: includes/class-wp-error-notify-admin.php:51
+msgid "General Settings"
+msgstr "一般設定"
+
+#: includes/class-wp-error-notify-admin.php:52
+msgid "Configure general settings for error notifications."
+msgstr "エラー通知に関する一般設定を行います。"
+
+#: includes/class-wp-error-notify-admin.php:106
+msgid "The Webhook URLs and other settings below are saved in the database. Therefore, errors that occur when the database is unavailable (e.g., database connection errors) may not be notified using these settings."
+msgstr "以下のWebhook URLおよびその他の設定はデータベースに保存されます。そのため、データベースが利用できない状況で発生したエラー（例: データベース接続エラー）は、これらの設定では通知できない場合があります。"
+
+#: includes/class-wp-error-notify-admin.php:109
+msgid "If you want to send notifications even for database errors, please add the following constants to your <code>wp-config.php</code> file:"
+msgstr "データベースエラー時にも通知を送信したい場合は、<code>wp-config.php</code> ファイルに以下の定数を追記してください:"
+
+#: includes/class-wp-error-notify-admin.php:112
+msgid "For Discord:"
+msgstr "Discord の場合:"
+
+#: includes/class-wp-error-notify-admin.php:117
+msgid "For Slack:"
+msgstr "Slack の場合:"
+
+#: includes/class-wp-error-notify-admin.php:123
+msgid "If constants are defined in `wp-config.php`, they will be used as a fallback or override the settings below if the database is inaccessible or the DB field is empty."
+msgstr "<code>wp-config.php</code> に定数が定義されている場合、データベースがアクセス不能な場合やデータベースのフィールドが空の場合に、それらの定数がフォールバックとして、または以下の設定を上書きして使用されます。"
+
+#: includes/class-wp-error-notify-admin.php:60
+msgid "Enable Notification Services"
+msgstr "通知サービスを有効化"
+
+#: includes/class-wp-error-notify-admin.php:143
+msgid "Discord"
+msgstr "Discord"
+
+#: includes/class-wp-error-notify-admin.php:144
+msgid "Slack"
+msgstr "Slack"
+
+#: includes/class-wp-error-notify-admin.php:150
+msgid "Select the services you want to use for notifications."
+msgstr "通知に使用するサービスを選択してください。"
+
+#: includes/class-wp-error-notify-admin.php:68
+msgid "Notify Error Levels"
+msgstr "通知するエラーレベル"
+
+#: includes/class-wp-error-notify-admin.php:175
+msgid "Select the PHP error levels you want to be notified about. It is recommended to keep fatal errors selected."
+msgstr "通知を受け取りたいPHPエラーレベルを選択してください。致命的なエラーを選択しておくことを推奨します。"
+
+#: includes/class-wp-error-notify-admin.php:76
+msgid "Discord Settings"
+msgstr "Discord 設定"
+
+#: includes/class-wp-error-notify-admin.php:85
+msgid "Slack Settings"
+msgstr "Slack 設定"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:130
+msgid "Configure settings for %s notifications."
+msgstr "%s 通知の設定を行います。"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:95
+msgid "%s Webhook URL"
+msgstr "%s Webhook URL"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:101
+msgid "%s Username (Optional)"
+msgstr "%s ユーザー名 (任意)"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:107
+msgid "%s Avatar URL / Icon (Optional)"
+msgstr "%s アバターURL / アイコン (任意)"
+
+#: includes/class-wp-error-notify-admin.php:201
+msgid "For Slack, you can also use an emoji like :robot_face:"
+msgstr "Slackの場合、:robot_face: のような絵文字も使用できます。"
+
+# @ php-format
+#: includes/class-wp-error-notify-admin.php:188
+msgid "Currently using value from wp-config.php: %s"
+msgstr "現在 wp-config.php の値を使用中: %s"
+
+#: includes/class-wp-error-notify-settings.php:87
+msgid "Fatal run-time errors. (E_ERROR)"
+msgstr "致命的な実行時エラー (E_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:88
+msgid "Run-time warnings (non-fatal errors). (E_WARNING)"
+msgstr "実行時の警告 (致命的ではないエラー) (E_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:89
+msgid "Compile-time parse errors. (E_PARSE)"
+msgstr "コンパイル時のパースエラー (E_PARSE)"
+
+#: includes/class-wp-error-notify-settings.php:90
+msgid "Run-time notices. (E_NOTICE)"
+msgstr "実行時の通知 (E_NOTICE)"
+
+#: includes/class-wp-error-notify-settings.php:91
+msgid "Fatal errors that occur during PHP's initial startup. (E_CORE_ERROR)"
+msgstr "PHP初期起動時の致命的なエラー (E_CORE_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:92
+msgid "Warnings (non-fatal errors) that occur during PHP's initial startup. (E_CORE_WARNING)"
+msgstr "PHP初期起動時の警告 (致命的ではないエラー) (E_CORE_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:93
+msgid "Fatal compile-time errors. (E_COMPILE_ERROR)"
+msgstr "致命的なコンパイル時エラー (E_COMPILE_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:94
+msgid "Compile-time warnings (non-fatal errors). (E_COMPILE_WARNING)"
+msgstr "コンパイル時の警告 (致命的ではないエラー) (E_COMPILE_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:95
+msgid "User-generated error message. (E_USER_ERROR)"
+msgstr "ユーザー生成のエラーメッセージ (E_USER_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:96
+msgid "User-generated warning message. (E_USER_WARNING)"
+msgstr "ユーザー生成の警告メッセージ (E_USER_WARNING)"
+
+#: includes/class-wp-error-notify-settings.php:97
+msgid "User-generated notice message. (E_USER_NOTICE)"
+msgstr "ユーザー生成の通知メッセージ (E_USER_NOTICE)"
+
+#: includes/class-wp-error-notify-settings.php:98
+msgid "Enable to have PHP suggest changes to your code which will ensure the best interoperability and forward compatibility of your code. (E_STRICT)"
+msgstr "コードの互換性と将来の互換性を最善に確保するためのPHPによるコード変更の提案を有効にします。(E_STRICT)"
+
+#: includes/class-wp-error-notify-settings.php:99
+msgid "Catchable fatal error. (E_RECOVERABLE_ERROR)"
+msgstr "キャッチ可能な致命的エラー (E_RECOVERABLE_ERROR)"
+
+#: includes/class-wp-error-notify-settings.php:100
+msgid "Run-time notices. Enable to receive warnings about code that will not work in future versions. (E_DEPRECATED)"
+msgstr "実行時の通知。将来のバージョンで動作しなくなるコードに関する警告を受け取るようにします。(E_DEPRECATED)"
+
+#: includes/class-wp-error-notify-settings.php:101
+msgid "User-generated warning message. (E_USER_DEPRECATED)"
+msgstr "ユーザー定義の非推奨の警告 (E_USER_DEPRECATED)"
+
+# @ php-format
+#: includes/class-wp-error-notify-settings.php:111
+msgid "Unknown error type (%d)"
+msgstr "不明なエラータイプ (%d)"
+
+#: includes/class-wp-error-notify-handler.php:85
+#: includes/class-wp-error-notify-handler.php:95
+#: includes/class-wp-error-notify-handler.php:172
+msgid "Error Content"
+msgstr "エラー内容"
+
+#: includes/class-wp-error-notify-handler.php:88
+#: includes/class-wp-error-notify-handler.php:175
+msgid "Error Location"
+msgstr "エラー箇所"
+
+#: includes/class-wp-error-notify-handler.php:96
+msgid "A critical error occurred. Details from wp_die:"
+msgstr "致命的なエラーが発生しました。wp_dieからの詳細:"
+
+#: includes/class-wp-error-notify-handler.php:98
+msgid "Message"
+msgstr "メッセージ"
+
+#: includes/class-wp-error-notify-handler.php:100
+msgid "An unknown error occurred."
+msgstr "不明なエラーが発生しました。"
+
+#: includes/class-wp-error-notify-handler.php:120
+msgid "A critical error has occurred on your site."
+msgstr "サイトで致命的なエラーが発生しました。"
+
+#: includes/class-wp-error-notify-handler.php:178
+#: includes/class-wp-error-notify-handler.php:185
+msgid "Site URL"
+msgstr "サイトURL"
+
+#: includes/class-wp-error-notify-handler.php:193
+msgid "An error has occurred on your site."
+msgstr "サイトでエラーが発生しました。"
+
+msgid "Request Information"
+msgstr "リクエスト情報"
+
+msgid "N/A (CLI Request or System Process)"
+msgstr "N/A (CLIリクエストまたはシステムプロセス)"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Request URI"
+msgstr "リクエストURI"
+
+msgid "Method"
+msgstr "メソッド"
+
+msgid "Referer"
+msgstr "リファラ"
+
+msgid "User Agent"
+msgstr "ユーザーエージェント"
+
+msgid "IP Address"
+msgstr "IPアドレス"
+
+msgid "N/A"
+msgstr "N/A"
+
+msgid "An unknown error occurred via wp_die."
+msgstr "wp_die経由で不明なエラーが発生しました。"
