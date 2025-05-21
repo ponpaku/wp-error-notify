@@ -1,11 +1,9 @@
 <?php
 /**
  * Plugin Name: WP Error Notify
- * Plugin URI: https://example.com/wp-error-notify
  * Description: Notifies website errors via Discord or Slack. WordPressのエラーをDiscordやSlackで通知します。
  * Version: 1.0.0
  * Author: Ponpaku
- * Author URI: https://example.com
  * Text Domain: wp-error-notify
  * Domain Path: /languages
  * Requires at least: 5.0
