@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Error Notify
  * Description: Notifies website errors via Discord or Slack. WordPressのエラーをDiscordやSlackで通知します。
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Ponpaku
  * Text Domain: wp-error-notify
  * Domain Path: /languages
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // プラグインのバージョン
-define( 'WP_ERROR_NOTIFY_VERSION', '1.0.0' );
+define( 'WP_ERROR_NOTIFY_VERSION', '1.0.1' );
 // プラグインのパス
 define( 'WP_ERROR_NOTIFY_PATH', plugin_dir_path( __FILE__ ) );
 // プラグインのURL
@@ -49,15 +49,22 @@ if ( is_admin() ) {
 
 // プラグインの初期化
 function wp_error_notify_init() {
-	// 国際化対応
-	load_plugin_textdomain( 'wp-error-notify', false, basename( dirname( __FILE__ ) ) . '/languages/' );
-
 	WP_Error_Notify_Main::get_instance();
 	if ( is_admin() ) {
 		WP_Error_Notify_Admin::get_instance();
 	}
 }
 add_action( 'plugins_loaded', 'wp_error_notify_init', 1);
+
+// 国際化対応
+add_action( 'init', function () {
+    load_plugin_textdomain(
+        'wp-error-notify',
+        false,
+        dirname( plugin_basename( __FILE__ ) ) . '/languages'
+    );
+}, 0);
+
 
 // アンインストール時の処理
 register_uninstall_hook( __FILE__, 'wp_error_notify_uninstall' );
