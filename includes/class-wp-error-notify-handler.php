@@ -80,15 +80,26 @@ class WP_Error_Notify_Handler {
 	 * 現リクエスト情報をMarkdown形式で取得する。
 	 * @return string リクエスト情報Markdown文字列
 	 */
-	private function get_request_details_markdown(): string {
-		// CLIまたはWP-CLI経由実行時は専用情報を返す
-		if ( php_sapi_name() === 'cli' || ( defined('WP_CLI') && WP_CLI ) ) {
-			return sprintf(
-				"**%s**\n%s\n\n",
-				__( 'Request Information', 'wp-error-notify' ),
-				__( 'N/A (CLI Request or System Process)', 'wp-error-notify' )
-			);
-		}
+        private function get_request_details_markdown(): string {
+                $translations_ready = did_action( 'init' );
+                $label_request_info = $translations_ready ? __( 'Request Information', 'wp-error-notify' ) : 'Request Information';
+                $label_cli_request  = $translations_ready ? __( 'N/A (CLI Request or System Process)', 'wp-error-notify' ) : 'N/A (CLI Request or System Process)';
+                $label_url          = $translations_ready ? __( 'URL', 'wp-error-notify' ) : 'URL';
+                $label_request_uri  = $translations_ready ? __( 'Request URI', 'wp-error-notify' ) : 'Request URI';
+                $label_na           = $translations_ready ? __( 'N/A', 'wp-error-notify' ) : 'N/A';
+                $label_method       = $translations_ready ? __( 'Method', 'wp-error-notify' ) : 'Method';
+                $label_referer      = $translations_ready ? __( 'Referer', 'wp-error-notify' ) : 'Referer';
+                $label_user_agent   = $translations_ready ? __( 'User Agent', 'wp-error-notify' ) : 'User Agent';
+                $label_ip_address   = $translations_ready ? __( 'IP Address', 'wp-error-notify' ) : 'IP Address';
+
+                // CLIまたはWP-CLI経由実行時は専用情報を返す
+                if ( php_sapi_name() === 'cli' || ( defined('WP_CLI') && WP_CLI ) ) {
+                        return sprintf(
+                                "**%s**\n%s\n\n",
+                                $label_request_info,
+                                $label_cli_request
+                        );
+                }
 
 		$details = [];
 		// プロトコル (http/https) 取得
@@ -97,27 +108,27 @@ class WP_Error_Notify_Handler {
 		$uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '';
 
 		// URLまたはURI取得
-		if (!empty($host)) {
-			$full_url = $protocol . $host . $uri;
-			$details[__( 'URL', 'wp-error-notify' )] = '`' . $full_url . '`';
-		} elseif (!empty($uri)) {
-			$details[__( 'Request URI', 'wp-error-notify' )] = '`' . $uri . '`';
-		} else {
-			$details[__( 'URL', 'wp-error-notify' )] = __('N/A', 'wp-error-notify');
-		}
+                if (!empty($host)) {
+                        $full_url = $protocol . $host . $uri;
+                        $details[$label_url] = '`' . $full_url . '`';
+                } elseif (!empty($uri)) {
+                        $details[$label_request_uri] = '`' . $uri . '`';
+                } else {
+                        $details[$label_url] = $label_na;
+                }
 
-		// リクエストメソッド
-		$details[__( 'Method', 'wp-error-notify' )] = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : __('N/A', 'wp-error-notify');
-		// リファラ
-		$referer_url = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : null;
-		$details[__( 'Referer', 'wp-error-notify' )] = $referer_url ? '`' . $referer_url . '`' : __('N/A', 'wp-error-notify');
-		// User Agent
-		$details[__( 'User Agent', 'wp-error-notify' )] = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : __('N/A', 'wp-error-notify');
-		// IPアドレス
-		$details[__( 'IP Address', 'wp-error-notify' )] = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : __('N/A', 'wp-error-notify');
+                // リクエストメソッド
+                $details[$label_method] = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : $label_na;
+                // リファラ
+                $referer_url = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : null;
+                $details[$label_referer] = $referer_url ? '`' . $referer_url . '`' : $label_na;
+                // User Agent
+                $details[$label_user_agent] = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : $label_na;
+                // IPアドレス
+                $details[$label_ip_address] = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : $label_na;
 
-		// Markdown形式整形
-		$markdown = "**" . __( 'Request Information', 'wp-error-notify' ) . "**\n";
+                // Markdown形式整形
+                $markdown = "**" . $label_request_info . "**\n";
 		foreach ( $details as $label => $value ) {
 			$markdown .= "{$label}: {$value}\n";
 		}
@@ -153,11 +164,19 @@ class WP_Error_Notify_Handler {
 	 * @param string $title エラータイトル
 	 * @param array $args 引数
 	 */
-	public function custom_wp_die_function( $message, $title = '', $args = [] ) {
-		// DB接続エラーの可能性時、設定をDBからでなくwp-config.phpから読むよう切替
-		if ( (is_string($message) && stripos($message, 'Error establishing a database connection') !== false) ||
-			 ($message instanceof WP_Error && $message->get_error_code() === 'db_connect_fail') ) {
-			$this->settings->mark_db_inaccessible(); // DBアクセス不可とマーク
+        public function custom_wp_die_function( $message, $title = '', $args = [] ) {
+                $translations_ready      = did_action( 'init' );
+                $label_error_content     = $translations_ready ? __( 'Error Content', 'wp-error-notify' ) : 'Error Content';
+                $label_error_location    = $translations_ready ? __( 'Error Location', 'wp-error-notify' ) : 'Error Location';
+                $label_unknown_wp_die    = $translations_ready ? __( 'An unknown error occurred via wp_die.', 'wp-error-notify') : 'An unknown error occurred via wp_die.';
+                $label_core_error_notice = $translations_ready ? __( 'A critical error occurred. Details from wp_die:', 'wp-error-notify' ) : 'A critical error occurred. Details from wp_die:';
+                $label_message           = $translations_ready ? __( 'Message', 'wp-error-notify' ) : 'Message';
+                $label_critical_die      = $translations_ready ? __( 'A critical error has occurred on your site.', 'wp-error-notify' ) : 'A critical error has occurred on your site.';
+
+                // DB接続エラーの可能性時、設定をDBからでなくwp-config.phpから読むよう切替
+                if ( (is_string($message) && stripos($message, 'Error establishing a database connection') !== false) ||
+                         ($message instanceof WP_Error && $message->get_error_code() === 'db_connect_fail') ) {
+                        $this->settings->mark_db_inaccessible(); // DBアクセス不可とマーク
 			$this->load_senders();                   // センダー再読み込み (wp-config.phpの値を使用)
 		}
 
@@ -176,32 +195,32 @@ class WP_Error_Notify_Handler {
 			$error_file_content = $error_detail['file'];
 			$error_line_content = $error_detail['line'];
 
-			$preformatted_core_error_details = sprintf(
-				"**%s**\n%s: %s\n\n**%s**\n%s on line %d",
-				__( 'Error Content', 'wp-error-notify' ),
-				$error_type_name,
-				$error_message_content,
-				__( 'Error Location', 'wp-error-notify' ),
-				$error_file_content,
-				$error_line_content
-			);
-		} else {
-			// error_get_last()で詳細が取れない場合 (wp_dieが直接エラーメッセージと共に呼ばれた等)
+                        $preformatted_core_error_details = sprintf(
+                                "**%s**\n%s: %s\n\n**%s**\n%s on line %d",
+                                $label_error_content,
+                                $error_type_name,
+                                $error_message_content,
+                                $label_error_location,
+                                $error_file_content,
+                                $error_line_content
+                        );
+                } else {
+                        // error_get_last()で詳細が取れない場合 (wp_dieが直接エラーメッセージと共に呼ばれた等)
 			$error_message_content = is_wp_error( $message ) ? $message->get_error_message() : strip_tags( (string) $message );
-			if ( empty( $error_message_content ) && ! empty( $title ) ) {
-				$error_message_content = strip_tags( (string) $title );
-			} elseif ( empty( $error_message_content ) ) {
-				$error_message_content = __( 'An unknown error occurred via wp_die.', 'wp-error-notify');
-			}
+                        if ( empty( $error_message_content ) && ! empty( $title ) ) {
+                                $error_message_content = strip_tags( (string) $title );
+                        } elseif ( empty( $error_message_content ) ) {
+                                $error_message_content = $label_unknown_wp_die;
+                        }
 
-			$preformatted_core_error_details = sprintf(
-				"**%s**\n%s\n\n**%s**\n%s",
-				__( 'Error Content', 'wp-error-notify' ),
-				__( 'A critical error occurred. Details from wp_die:', 'wp-error-notify' ), // wp_die経由を明記
-				__( 'Message', 'wp-error-notify' ),
-				$error_message_content
-			);
-		}
+                        $preformatted_core_error_details = sprintf(
+                                "**%s**\n%s\n\n**%s**\n%s",
+                                $label_error_content,
+                                $label_core_error_notice, // wp_die経由を明記
+                                $label_message,
+                                $error_message_content
+                        );
+                }
 
 		// エラー情報を元に通知処理実行
 		$this->process_error(
@@ -213,21 +232,21 @@ class WP_Error_Notify_Handler {
 		);
 
 		// WordPress標準wp_die処理続行
-		if ( function_exists( '_default_wp_die_handler' ) ) {
-			_default_wp_die_handler( $message, $title, $args );
-		} else {
-			// フォールバック (通常は_default_wp_die_handlerが存在)
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                if ( function_exists( '_default_wp_die_handler' ) ) {
+                        _default_wp_die_handler( $message, $title, $args );
+                } else {
+                        // フォールバック (通常は_default_wp_die_handlerが存在)
+                        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 				$output = is_wp_error( $message ) ? $message->get_error_message() : $message;
-				if ( $title ) {
-					$output = $title . ': ' . $output;
-				}
-				die( (string) $output );
-			} else {
-				die( __( 'A critical error has occurred on your site.', 'wp-error-notify' ) );
-			}
-		}
-	}
+                                if ( $title ) {
+                                        $output = $title . ': ' . $output;
+                                }
+                                die( (string) $output );
+                        } else {
+                                die( $label_critical_die );
+                        }
+                }
+        }
 
 	/**
 	 * シャットダウンハンドラ (register_shutdown_functionで使用)。
@@ -285,9 +304,14 @@ class WP_Error_Notify_Handler {
 	 * @param int $errline エラー発生行番号
 	 * @param string|null $preformatted_core_error_details 事前整形済エラーコア部分 (エラー内容と箇所)。wp_die等から受渡し。
 	 */
-	private function process_error( $errno, $errstr, $errfile, $errline, $preformatted_core_error_details = null ) {
-		// --- User-Agentによる通知フィルタリング ---
-		if ( isset($_SERVER['HTTP_USER_AGENT']) && !empty($_SERVER['HTTP_USER_AGENT']) ) {
+        private function process_error( $errno, $errstr, $errfile, $errline, $preformatted_core_error_details = null ) {
+                $translations_ready   = did_action( 'init' );
+                $label_error_content  = $translations_ready ? __( 'Error Content', 'wp-error-notify' ) : 'Error Content';
+                $label_error_location = $translations_ready ? __( 'Error Location', 'wp-error-notify' ) : 'Error Location';
+                $label_error_title    = $translations_ready ? __( 'An error has occurred on your site.', 'wp-error-notify' ) : 'An error has occurred on your site.';
+
+                // --- User-Agentによる通知フィルタリング ---
+                if ( isset($_SERVER['HTTP_USER_AGENT']) && !empty($_SERVER['HTTP_USER_AGENT']) ) {
 			$current_user_agent = sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT']));
 			// 無視リスト取得 (将来的にフィルターフックで拡張可能)
 			$ignored_agents_list = apply_filters('wp_error_notify_ignored_user_agents', $this->ignored_user_agents);
@@ -321,15 +345,15 @@ class WP_Error_Notify_Handler {
 		if ( null === $preformatted_core_error_details ) {
 			// 通常PHPエラーの場合 (set_error_handler, register_shutdown_functionから)
 			$error_type_name = $this->settings->get_error_type_name( $errno );
-			$core_error_details_markdown = sprintf(
-				"**%s**\n%s: %s\n\n**%s**\n%s on line %d",
-				__( 'Error Content', 'wp-error-notify' ),
-				$error_type_name,
-				$errstr,
-				__( 'Error Location', 'wp-error-notify' ),
-				$errfile,
-				$errline
-			);
+                        $core_error_details_markdown = sprintf(
+                                "**%s**\n%s: %s\n\n**%s**\n%s on line %d",
+                                $label_error_content,
+                                $error_type_name,
+                                $errstr,
+                                $label_error_location,
+                                $errfile,
+                                $errline
+                        );
 		} else {
 			// wp_dieハンドラから整形済情報が渡された場合
 			$core_error_details_markdown = $preformatted_core_error_details;
@@ -340,7 +364,7 @@ class WP_Error_Notify_Handler {
 		// 最終通知メッセージ本文作成 (エラーコア情報 + リクエスト情報)
 		$description_message = $core_error_details_markdown . "\n\n" . $request_info_markdown;
 		// 通知タイトル
-		$title = __( 'An error has occurred on your site.', 'wp-error-notify' );
+                $title = $label_error_title;
 
 		// 有効な各センダーで通知送信
 		foreach ( $this->senders as $service_name => $sender ) {
