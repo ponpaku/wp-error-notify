@@ -56,8 +56,8 @@ function wp_error_notify_init() {
 }
 add_action( 'plugins_loaded', 'wp_error_notify_init', 1);
 
-// 国際化対応
-add_action( 'init', function () {
+// 国際化対応: plugins_loaded の早い段階で読み込むことで init 前の翻訳呼び出しでもドメインが確実に利用可能となる
+add_action( 'plugins_loaded', function () {
     load_plugin_textdomain(
         'wp-error-notify',
         false,
