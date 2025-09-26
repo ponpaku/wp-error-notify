@@ -85,8 +85,8 @@ class WP_Error_Notify_Handler {
 		if ( php_sapi_name() === 'cli' || ( defined('WP_CLI') && WP_CLI ) ) {
 			return sprintf(
 				"**%s**\n%s\n\n",
-				__( 'Request Information', 'wp-error-notify' ),
-				__( 'N/A (CLI Request or System Process)', 'wp-error-notify' )
+				wp_error_notify__( 'Request Information' ),
+				wp_error_notify__( 'N/A (CLI Request or System Process)' )
 			);
 		}
 
@@ -99,25 +99,25 @@ class WP_Error_Notify_Handler {
 		// URLまたはURI取得
 		if (!empty($host)) {
 			$full_url = $protocol . $host . $uri;
-			$details[__( 'URL', 'wp-error-notify' )] = '`' . $full_url . '`';
+			$details[wp_error_notify__( 'URL' )] = '`' . $full_url . '`';
 		} elseif (!empty($uri)) {
-			$details[__( 'Request URI', 'wp-error-notify' )] = '`' . $uri . '`';
+			$details[wp_error_notify__( 'Request URI' )] = '`' . $uri . '`';
 		} else {
-			$details[__( 'URL', 'wp-error-notify' )] = __('N/A', 'wp-error-notify');
+			$details[wp_error_notify__( 'URL' )] = wp_error_notify__( 'N/A' );
 		}
 
 		// リクエストメソッド
-		$details[__( 'Method', 'wp-error-notify' )] = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : __('N/A', 'wp-error-notify');
+		$details[wp_error_notify__( 'Method' )] = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_METHOD'])) : wp_error_notify__( 'N/A' );
 		// リファラ
 		$referer_url = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw(wp_unslash($_SERVER['HTTP_REFERER'])) : null;
-		$details[__( 'Referer', 'wp-error-notify' )] = $referer_url ? '`' . $referer_url . '`' : __('N/A', 'wp-error-notify');
+		$details[wp_error_notify__( 'Referer' )] = $referer_url ? '`' . $referer_url . '`' : wp_error_notify__( 'N/A' );
 		// User Agent
-		$details[__( 'User Agent', 'wp-error-notify' )] = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : __('N/A', 'wp-error-notify');
+		$details[wp_error_notify__( 'User Agent' )] = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : wp_error_notify__( 'N/A' );
 		// IPアドレス
-		$details[__( 'IP Address', 'wp-error-notify' )] = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : __('N/A', 'wp-error-notify');
+		$details[wp_error_notify__( 'IP Address' )] = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : wp_error_notify__( 'N/A' );
 
 		// Markdown形式整形
-		$markdown = "**" . __( 'Request Information', 'wp-error-notify' ) . "**\n";
+		$markdown = "**" . wp_error_notify__( 'Request Information' ) . "**\n";
 		foreach ( $details as $label => $value ) {
 			$markdown .= "{$label}: {$value}\n";
 		}
@@ -178,10 +178,10 @@ class WP_Error_Notify_Handler {
 
 			$preformatted_core_error_details = sprintf(
 				"**%s**\n%s: %s\n\n**%s**\n%s on line %d",
-				__( 'Error Content', 'wp-error-notify' ),
+				wp_error_notify__( 'Error Content' ),
 				$error_type_name,
 				$error_message_content,
-				__( 'Error Location', 'wp-error-notify' ),
+				wp_error_notify__( 'Error Location' ),
 				$error_file_content,
 				$error_line_content
 			);
@@ -191,14 +191,14 @@ class WP_Error_Notify_Handler {
 			if ( empty( $error_message_content ) && ! empty( $title ) ) {
 				$error_message_content = strip_tags( (string) $title );
 			} elseif ( empty( $error_message_content ) ) {
-				$error_message_content = __( 'An unknown error occurred via wp_die.', 'wp-error-notify');
+				$error_message_content = wp_error_notify__( 'An unknown error occurred via wp_die.' );
 			}
 
 			$preformatted_core_error_details = sprintf(
 				"**%s**\n%s\n\n**%s**\n%s",
-				__( 'Error Content', 'wp-error-notify' ),
-				__( 'A critical error occurred. Details from wp_die:', 'wp-error-notify' ), // wp_die経由を明記
-				__( 'Message', 'wp-error-notify' ),
+				wp_error_notify__( 'Error Content' ),
+				wp_error_notify__( 'A critical error occurred. Details from wp_die:' ), // wp_die経由を明記
+				wp_error_notify__( 'Message' ),
 				$error_message_content
 			);
 		}
@@ -224,7 +224,7 @@ class WP_Error_Notify_Handler {
 				}
 				die( (string) $output );
 			} else {
-				die( __( 'A critical error has occurred on your site.', 'wp-error-notify' ) );
+				die( wp_error_notify__( 'A critical error has occurred on your site.' ) );
 			}
 		}
 	}
@@ -323,10 +323,10 @@ class WP_Error_Notify_Handler {
 			$error_type_name = $this->settings->get_error_type_name( $errno );
 			$core_error_details_markdown = sprintf(
 				"**%s**\n%s: %s\n\n**%s**\n%s on line %d",
-				__( 'Error Content', 'wp-error-notify' ),
+				wp_error_notify__( 'Error Content' ),
 				$error_type_name,
 				$errstr,
-				__( 'Error Location', 'wp-error-notify' ),
+				wp_error_notify__( 'Error Location' ),
 				$errfile,
 				$errline
 			);
@@ -340,7 +340,7 @@ class WP_Error_Notify_Handler {
 		// 最終通知メッセージ本文作成 (エラーコア情報 + リクエスト情報)
 		$description_message = $core_error_details_markdown . "\n\n" . $request_info_markdown;
 		// 通知タイトル
-		$title = __( 'An error has occurred on your site.', 'wp-error-notify' );
+		$title = wp_error_notify__( 'An error has occurred on your site.' );
 
 		// 有効な各センダーで通知送信
 		foreach ( $this->senders as $service_name => $sender ) {

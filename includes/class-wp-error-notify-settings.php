@@ -124,21 +124,21 @@ class WP_Error_Notify_Settings {
 	 */
 	public static function get_all_error_levels() {
 		return [
-			E_ERROR             => __('Fatal run-time errors. (E_ERROR)', 'wp-error-notify'),
-			E_WARNING           => __('Run-time warnings (non-fatal errors). (E_WARNING)', 'wp-error-notify'),
-			E_PARSE             => __('Compile-time parse errors. (E_PARSE)', 'wp-error-notify'),
-			E_NOTICE            => __('Run-time notices. (E_NOTICE)', 'wp-error-notify'),
-			E_CORE_ERROR        => __('Fatal errors that occur during PHP\'s initial startup. (E_CORE_ERROR)', 'wp-error-notify'),
-			E_CORE_WARNING      => __('Warnings (non-fatal errors) that occur during PHP\'s initial startup. (E_CORE_WARNING)', 'wp-error-notify'),
-			E_COMPILE_ERROR     => __('Fatal compile-time errors. (E_COMPILE_ERROR)', 'wp-error-notify'),
-			E_COMPILE_WARNING   => __('Compile-time warnings (non-fatal errors). (E_COMPILE_WARNING)', 'wp-error-notify'),
-			E_USER_ERROR        => __('User-generated error message. (E_USER_ERROR)', 'wp-error-notify'),
-			E_USER_WARNING      => __('User-generated warning message. (E_USER_WARNING)', 'wp-error-notify'),
-			E_USER_NOTICE       => __('User-generated notice message. (E_USER_NOTICE)', 'wp-error-notify'),
-			E_STRICT            => __('Enable to have PHP suggest changes to your code which will ensure the best interoperability and forward compatibility of your code. (E_STRICT)', 'wp-error-notify'),
-			E_RECOVERABLE_ERROR => __('Catchable fatal error. (E_RECOVERABLE_ERROR)', 'wp-error-notify'),
-			E_DEPRECATED        => __('Run-time notices. Enable to receive warnings about code that will not work in future versions. (E_DEPRECATED)', 'wp-error-notify'),
-			E_USER_DEPRECATED   => __('User-generated warning message. (E_USER_DEPRECATED)', 'wp-error-notify'),
+			E_ERROR             => wp_error_notify__( 'Fatal run-time errors. (E_ERROR)' ),
+			E_WARNING           => wp_error_notify__( 'Run-time warnings (non-fatal errors). (E_WARNING)' ),
+			E_PARSE             => wp_error_notify__( 'Compile-time parse errors. (E_PARSE)' ),
+			E_NOTICE            => wp_error_notify__( 'Run-time notices. (E_NOTICE)' ),
+			E_CORE_ERROR        => wp_error_notify__( 'Fatal errors that occur during PHP\'s initial startup. (E_CORE_ERROR)' ),
+			E_CORE_WARNING      => wp_error_notify__( 'Warnings (non-fatal errors) that occur during PHP\'s initial startup. (E_CORE_WARNING)' ),
+			E_COMPILE_ERROR     => wp_error_notify__( 'Fatal compile-time errors. (E_COMPILE_ERROR)' ),
+			E_COMPILE_WARNING   => wp_error_notify__( 'Compile-time warnings (non-fatal errors). (E_COMPILE_WARNING)' ),
+			E_USER_ERROR        => wp_error_notify__( 'User-generated error message. (E_USER_ERROR)' ),
+			E_USER_WARNING      => wp_error_notify__( 'User-generated warning message. (E_USER_WARNING)' ),
+			E_USER_NOTICE       => wp_error_notify__( 'User-generated notice message. (E_USER_NOTICE)' ),
+			E_STRICT            => wp_error_notify__( 'Enable to have PHP suggest changes to your code which will ensure the best interoperability and forward compatibility of your code. (E_STRICT)' ),
+			E_RECOVERABLE_ERROR => wp_error_notify__( 'Catchable fatal error. (E_RECOVERABLE_ERROR)' ),
+			E_DEPRECATED        => wp_error_notify__( 'Run-time notices. Enable to receive warnings about code that will not work in future versions. (E_DEPRECATED)' ),
+			E_USER_DEPRECATED   => wp_error_notify__( 'User-generated warning message. (E_USER_DEPRECATED)' ),
 		];
 	}
 
@@ -149,7 +149,7 @@ class WP_Error_Notify_Settings {
 	 */
 	public function get_error_type_name( int $type ): string {
 		$levels = self::get_all_error_levels();
-		return isset( $levels[$type] ) ? $levels[$type] : sprintf( __( 'Unknown error type (%d)', 'wp-error-notify' ), $type );
+		return isset( $levels[$type] ) ? $levels[$type] : sprintf( wp_error_notify__( 'Unknown error type (%d)' ), $type );
 	}
 
 	/**

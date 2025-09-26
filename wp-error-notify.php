@@ -56,13 +56,49 @@ function wp_error_notify_init() {
 }
 add_action( 'plugins_loaded', 'wp_error_notify_init', 1);
 
-// 国際化対応
+// 翻訳利用可否を判定するユーティリティ
+function wp_error_notify_is_translation_ready(): bool {
+    static $ready = null;
+
+    if ( true === $ready ) {
+        return true;
+    }
+
+    if ( function_exists( 'is_textdomain_loaded' ) && is_textdomain_loaded( 'wp-error-notify' ) ) {
+        $ready = true;
+        return true;
+    }
+
+    return false;
+}
+
+// 翻訳テキストを安全に取得するラッパー
+function wp_error_notify__( string $text ): string {
+    if ( wp_error_notify_is_translation_ready() ) {
+        return __( $text, 'wp-error-notify' );
+    }
+
+    return $text;
+}
+
+// esc_html__ 相当の安全なラッパー
+function wp_error_notify_esc_html__( string $text ): string {
+    if ( wp_error_notify_is_translation_ready() ) {
+        return esc_html__( $text, 'wp-error-notify' );
+    }
+
+    return esc_html( $text );
+}
+
+// 国際化対応: init 以降でテキストドメインを読み込む
 add_action( 'init', function () {
     load_plugin_textdomain(
         'wp-error-notify',
         false,
         dirname( plugin_basename( __FILE__ ) ) . '/languages'
     );
+
+    wp_error_notify_is_translation_ready(); // キャッシュ更新目的で呼び出し
 }, 0);
 
 
